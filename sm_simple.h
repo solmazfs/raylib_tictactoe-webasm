@@ -12,10 +12,9 @@
 
 #ifndef SM_SIMPLE_
 #define SM_SIMPLE_
-// DEBUG
-// DEBUG END
+
 void _Init();
 void _Process();
 void _Draw();
-int change_state(int new_state);
+
 #endif

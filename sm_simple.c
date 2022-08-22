@@ -14,9 +14,10 @@
 // rand
 #include <time.h>
 #include <stdlib.h>
+// videogame library
 #include "raylib.h"
 #include "reasings.h"
-
+// simple state machine header
 #include "sm_simple.h"
 
 #define for_ij for (int i = 0; i < 3; i++) for (int j = 0; j < 3; j++)
@@ -80,6 +81,7 @@ int currentPlayer;
 int gameState;
 Rectangle boxIndex[3][3];
 
+int change_state(int new_state);
 int minmax_ai(int val, int depth);
 bool check_winner();
 
@@ -106,10 +108,11 @@ void _Init() {
     board.anim = 0;
     board.anim_speed = board.size/48;
     // game state
-    gameState = change_state(start);
     // human/computer
     human.score = 0;
     computer.score = 0;
+    // ready to start
+    gameState = change_state(start);
 }
 
 void _Process() {
@@ -137,15 +140,15 @@ void _Process() {
                         board.turn++;
                         currentPlayer = COMPUTER;
                     }
-                    // DEBUG --> computer
-                    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && board.array[i][j] == NONE && currentPlayer == COMPUTER && (!human.play && !computer.play)) {
-                        board.array[i][j] = COMPUTER;
-                        computer.current = boxIndex[i][j];
-                        computer.anim = 180;
-                        computer.play = true;
-                        currentPlayer = HUMAN;
-                        board.turn++;
-                    }
+                    // DEBUG --> computer || another player
+                    // if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && board.array[i][j] == NONE && currentPlayer == COMPUTER && (!human.play && !computer.play)) {
+                    //     board.array[i][j] = COMPUTER;
+                    //     computer.current = boxIndex[i][j];
+                    //     computer.anim = 180;
+                    //     computer.play = true;
+                    //     currentPlayer = HUMAN;
+                    //     board.turn++;
+                    // }
                 }
             }
             // DEBUG --> minmax ai
